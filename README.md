@@ -1,4 +1,4 @@
-<img alt="ClickAndMeow: An awmazing API wrapper for Clic&Miam" src="https://raw.githubusercontent.com/LiterateInk/ClickAndMeow/main/.github/assets/banner.svg" width="100%" />
+<img alt="ClickAndMeow: A meow-mazing API wrapper for ClicEtMiam." src="https://raw.githubusercontent.com/LiterateInk/ClickAndMeow/main/.github/assets/banner.svg" width="100%" />
 
 *This library **is not** affiliated with [Clic&Miam](https://www.clicetmiam.fr/) in any way.*
 

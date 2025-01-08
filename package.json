@@ -1,7 +1,7 @@
 {
   "name": "clickandmeow",
   "version": "0.0.0",
-  "description": "An awmazing API wrapper for Clic&Miam.",
+  "description": "A meow-mazing API wrapper for ClicEtMiam.",
   "repository": "https://github.com/LiterateInk/ClickAndMeow",
   "sideEffects": false,
   "main": "./js/index.js",

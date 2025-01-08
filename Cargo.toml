@@ -1,7 +1,7 @@
 [package]
 name = "clickandmeow"
 version = "0.0.0"
-description = "An awmazing API wrapper for Clic&Miam."
+description = "A meow-mazing API wrapper for ClicEtMiam."
 repository = "https://github.com/LiterateInk/ClickAndMeow"
 authors = ["LiterateInk <contact@literate.ink>"]
 keywords = ["clicetmiam", "wrapper", "api"]

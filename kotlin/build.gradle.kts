@@ -55,7 +55,7 @@ mavenPublishing {
 
   pom {
     name = libraryName
-    description = "An awmazing API wrapper for Clic&Miam."
+    description = "A meow-mazing API wrapper for ClicEtMiam."
     inceptionYear = "2024"
 
     url = "https://docs.literate.ink/$idLibraryName"

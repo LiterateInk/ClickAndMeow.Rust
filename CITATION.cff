@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: ClickAndMeow
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - name: LiterateInk
+    website: "https://literate.ink"
+    email: contact@literate.ink
+repository-code: 'https://github.com/LiterateInk/ClickAndMeow'
+url: 'https://docs.literate.ink/clickandmeow'
+abstract: >-
+  An awmazing API wrapper for Clic&Miam.
+keywords:
+  - clicetmiam
+  - wrapper
+  - api
+license: GPL-3.0-or-later

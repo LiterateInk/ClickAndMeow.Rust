@@ -1,0 +1,31 @@
+# Rust
+/target
+
+# macOS
+.DS_Store
+
+# IDEA
+.idea
+*.iml
+
+# Kotlin
+.gradle
+.kotlin
+build
+captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Swift
+xcuserdata
+.netrc
+/.build
+/Packages
+xcuserdata/
+DerivedData/
+.swiftpm/configuration/registries.json
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+
+# JS
+node_modules/

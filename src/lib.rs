@@ -6,3 +6,6 @@ pub use session::Session;
 
 mod definitions;
 pub use definitions::{Dishes, Menu};
+
+mod error;
+pub use error::Error;

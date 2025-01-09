@@ -11,4 +11,4 @@ mod error;
 pub use error::Error;
 
 mod menu;
-pub use menu::get_menus;
+pub use menu::{get_menus, get_menu_dishes};

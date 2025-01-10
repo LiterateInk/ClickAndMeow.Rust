@@ -18,7 +18,7 @@ let package = Package(
       name: "clickandmeowFFI",
       url:
         "https://github.com/LiterateInk/ClickAndMeow/releases/download/1.0.0/clickandmeowFFI.xcframework.zip",
-      checksum: "placeholder-checksum-until-first-release"),
+      checksum: "1909a64aae9a31baf6b9b249d46d656928ac42374215fbc7849f802b27e375db"),
     .target(
       name: "ClickAndMeow",
       dependencies: [.target(name: "clickandmeowFFI")],

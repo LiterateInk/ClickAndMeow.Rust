@@ -25,7 +25,7 @@ anyhow = "1.0"
 fetcher = { package = "literateink-fetcher", version = "0.1" }
 thiserror = "2"
 scraper = "0.22.0"
-chrono = "0.4.39"
+mini-alloc = "0.7.0"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wasm-bindgen = "0.2"

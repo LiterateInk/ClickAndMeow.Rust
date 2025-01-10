@@ -1,12 +1,11 @@
-use crate::{Session, definitions::{Menu, Dishes}, Error};
-use chrono::{Datelike, NaiveDate};
+use crate::{Session, definitions::{Menu, Dishes, Date}, Error};
 use fetcher::{fetch, Method, Request, Url};
 use scraper::{Html, Selector};
 
 #[cfg_attr(feature = "ffi", uniffi::export)]
-#[cfg_attr(target_arch = "wasm32", wasm::export)]
+#[cfg_attr(target_arch = "wasm32", wasm::append_fetcher, wasm::export)]
 pub async fn get_menus(session: &Session, establishment_id: u16) -> Result<Vec<Menu>, Error> {
-    let mut url = Url::parse(&session.base_url).unwrap();
+    let mut url = Url::parse(&session.base_url()).unwrap();
     url.set_path(&format!("/mesmenus/{}/0/2025/01/08", establishment_id));
 
     let request = Request {
@@ -31,20 +30,20 @@ pub async fn get_menus(session: &Session, establishment_id: u16) -> Result<Vec<M
     let mut menus: Vec<Menu> = Vec::new();
 
     for menu_option_el in document.select(&selector) {
-        menus.push(Menu {
-            name: menu_option_el.text().next().unwrap().trim().to_string(),
-            url: menu_option_el.attr("value").unwrap().split('/').collect::<Vec<&str>>()[0..4].join("/")
-        });
+        menus.push(Menu::new(
+            menu_option_el.text().next().unwrap().trim().to_string(),
+            menu_option_el.attr("value").unwrap().split('/').collect::<Vec<&str>>()[0..4].join("/")
+        ));
     }
 
     Ok(menus)
 }
 
 #[cfg_attr(feature = "ffi", uniffi::export)]
-#[cfg_attr(target_arch = "wasm32", wasm::export)]
-pub async fn get_menu_dishes(session: &Session, menu: &Menu, date: NaiveDate) -> Result<Dishes, Error> {
-    let mut url = Url::parse(&session.base_url).unwrap();
-    url.set_path(&format!("{}/{}/{:0>2}/{:0>2}", menu.url, date.year(), date.month0() + 1, date.day0() + 1));
+#[cfg_attr(target_arch = "wasm32", wasm::append_fetcher, wasm::export)]
+pub async fn get_menu_dishes(session: &Session, menu: &Menu, date: Date) -> Result<Dishes, Error> {
+    let mut url = Url::parse(&session.base_url()).unwrap();
+    url.set_path(&format!("{}/{}/{:0>2}/{:0>2}", menu._url(), date.year, date.month, date.day));
 
     let request = Request {
         url,
@@ -95,12 +94,12 @@ pub async fn get_menu_dishes(session: &Session, menu: &Menu, date: NaiveDate) ->
         };
     }
 
-    Ok(Dishes {
-        appetizers: appetizers,
-        lunchs: lunchs,
-        side_dishes: side_dishes,
-        dairy_products: dairy_products,
-        desserts: desserts,
-        unknown: unknown
-    })
+    Ok(Dishes::new(
+        appetizers,
+        lunchs,
+        side_dishes,
+        dairy_products,
+        desserts,
+        unknown
+    ))
 }

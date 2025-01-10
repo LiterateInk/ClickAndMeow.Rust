@@ -11,8 +11,8 @@ pub struct Session {
 #[cfg(not(target_arch = "wasm32"))]
 #[cfg_attr(feature = "ffi", derive(uniffi::Object))]
 pub struct Session {
-  pub php_sess_id: String,
-  pub base_url: String
+  php_sess_id: String,
+  base_url: String
 }
 
 #[cfg(not(target_arch = "wasm32"))]
@@ -43,11 +43,20 @@ impl Session {
   pub fn _php_sess_id(&self) -> String {
     self.php_sess_id.clone()
   }
+
+  #[wasm_bindgen(getter = baseUrl)]
+  pub fn _base_url(&self) -> String {
+    self.base_url.clone()
+  }
 }
 
 impl Session {
   pub fn php_sess_id(&self) -> &str {
     &self.php_sess_id
+  }
+
+  pub fn base_url(&self) -> &String {
+    return &self.base_url;
   }
 
   #[cfg(target_arch = "wasm32")]

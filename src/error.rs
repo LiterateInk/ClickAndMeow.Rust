@@ -5,10 +5,8 @@ use thiserror::Error;
 #[cfg_attr(feature = "ffi", derive(uniffi::Error), uniffi(flat_error))]
 #[cfg_attr(target_arch = "wasm32", derive(wasm::Error))]
 pub enum Error {
-  #[error("session expired, you need to authenticate again")]
-  ExpiredSession(),
-  #[error("server replied with an error ({0})")]
-  ServerError(String),
+  #[error("Couldn't login, check your credentials")]
+  InvalidCredentials(),
   #[error(transparent)]
   FetcherError(#[from] FetcherError),
 }

@@ -10,7 +10,7 @@ pub struct Session {
 #[cfg(not(target_arch = "wasm32"))]
 #[cfg_attr(feature = "ffi", derive(uniffi::Object))]
 pub struct Session {
-  php_sess_id: String
+  php_sess_id: String,
 }
 
 #[cfg(not(target_arch = "wasm32"))]
@@ -19,7 +19,7 @@ impl Session {
   #[cfg_attr(feature = "ffi", uniffi::constructor)]
   pub fn new(php_sess_id: &str) -> Self {
     Self {
-      php_sess_id: php_sess_id.to_string()
+      php_sess_id: php_sess_id.to_string(),
     }
   }
 }

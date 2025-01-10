@@ -1,12 +1,12 @@
 use fetcher::{fetch, Method, Request, Url};
 use scraper::{Html, Selector};
 
-use crate::{Establishment, Session, Error};
+use crate::{Error, Establishment, Session, BASE_URL};
 
 #[cfg_attr(feature = "ffi", uniffi::export)]
 #[cfg_attr(target_arch = "wasm32", wasm::append_fetcher, wasm::export)]
 pub async fn get_establishments(session: &Session) -> Result<Vec<Establishment>, Error> {
-    let mut url = Url::parse(&session.base_url()).unwrap();
+    let mut url = Url::parse(BASE_URL).unwrap();
     url.set_path("/mesmenus");
 
     let request = Request {

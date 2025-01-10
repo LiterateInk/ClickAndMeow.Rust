@@ -4,15 +4,13 @@ use fetcher::HeaderMap;
 #[wasm::export]
 pub struct Session {
   php_sess_id: String,
-  base_url: String,
   fetcher: js_sys::Function,
 }
 
 #[cfg(not(target_arch = "wasm32"))]
 #[cfg_attr(feature = "ffi", derive(uniffi::Object))]
 pub struct Session {
-  php_sess_id: String,
-  base_url: String
+  php_sess_id: String
 }
 
 #[cfg(not(target_arch = "wasm32"))]
@@ -21,8 +19,7 @@ impl Session {
   #[cfg_attr(feature = "ffi", uniffi::constructor)]
   pub fn new(php_sess_id: &str) -> Self {
     Self {
-      php_sess_id: php_sess_id.to_string(),
-      base_url: "https://www.clicetmiam.fr".to_string()
+      php_sess_id: php_sess_id.to_string()
     }
   }
 }
@@ -34,7 +31,6 @@ impl Session {
   pub fn new(php_sess_id: &str, fetcher: js_sys::Function) -> Self {
     Self {
       php_sess_id: php_sess_id.to_string(),
-      base_url: "https://www.clicetmiam.fr".to_string(),
       fetcher,
     }
   }
@@ -43,20 +39,11 @@ impl Session {
   pub fn _php_sess_id(&self) -> String {
     self.php_sess_id.clone()
   }
-
-  #[wasm_bindgen(getter = baseUrl)]
-  pub fn _base_url(&self) -> String {
-    self.base_url.clone()
-  }
 }
 
 impl Session {
   pub fn php_sess_id(&self) -> &str {
     &self.php_sess_id
-  }
-
-  pub fn base_url(&self) -> &String {
-    return &self.base_url;
   }
 
   #[cfg(target_arch = "wasm32")]

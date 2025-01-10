@@ -1,11 +1,11 @@
-use crate::{Session, definitions::{Menu, Dishes, Date}, Error};
+use crate::{definitions::{Date, Dishes, Menu}, Error, Session, BASE_URL};
 use fetcher::{fetch, Method, Request, Url};
 use scraper::{Html, Selector};
 
 #[cfg_attr(feature = "ffi", uniffi::export)]
 #[cfg_attr(target_arch = "wasm32", wasm::append_fetcher, wasm::export)]
 pub async fn get_menus(session: &Session, establishment_id: u16) -> Result<Vec<Menu>, Error> {
-    let mut url = Url::parse(&session.base_url()).unwrap();
+    let mut url = Url::parse(BASE_URL).unwrap();
     url.set_path(&format!("/mesmenus/{}/0/2025/01/08", establishment_id));
 
     let request = Request {
@@ -42,7 +42,7 @@ pub async fn get_menus(session: &Session, establishment_id: u16) -> Result<Vec<M
 #[cfg_attr(feature = "ffi", uniffi::export)]
 #[cfg_attr(target_arch = "wasm32", wasm::append_fetcher, wasm::export)]
 pub async fn get_menu_dishes(session: &Session, menu: &Menu, date: Date) -> Result<Dishes, Error> {
-    let mut url = Url::parse(&session.base_url()).unwrap();
+    let mut url = Url::parse(BASE_URL).unwrap();
     url.set_path(&format!("{}/{}/{:0>2}/{:0>2}", menu._url(), date.year, date.month, date.day));
 
     let request = Request {

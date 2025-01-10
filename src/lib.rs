@@ -19,3 +19,5 @@ pub use menu::{get_menus, get_menu_dishes};
 
 mod establishment;
 pub use establishment::get_establishments;
+
+const BASE_URL: &str = "https://www.clicetmiam.fr";

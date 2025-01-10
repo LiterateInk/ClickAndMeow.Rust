@@ -17,7 +17,7 @@ let package = Package(
     .binaryTarget(
       name: "clickandmeowFFI",
       url:
-        "https://github.com/LiterateInk/ClickAndMeow/releases/download/0.0.0/clickandmeowFFI.xcframework.zip",
+        "https://github.com/LiterateInk/ClickAndMeow/releases/download/1.0.0/clickandmeowFFI.xcframework.zip",
       checksum: "placeholder-checksum-until-first-release"),
     .target(
       name: "ClickAndMeow",

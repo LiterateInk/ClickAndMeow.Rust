@@ -1,12 +1,18 @@
-#[cfg_attr(target_arch = "wasm32", wasm::export)]
+#[cfg(not(target_arch = "wasm32"))]
+#[cfg_attr(feature = "ffi", derive(uniffi::Record))]
+pub struct Menu {
+    pub name: String,
+    pub url: String
+}
+
+#[cfg(target_arch = "wasm32")]
+#[wasm::export]
 pub struct Menu {
     name: String,
     url: String
 }
 
-#[cfg(not(target_arch = "wasm32"))]
 impl Menu {
-    #[cfg_attr(feature = "ffi", uniffi::constructor)]
     pub fn new(name: String, url: String) -> Self {
         Self {
             name,
@@ -14,11 +20,11 @@ impl Menu {
         }
     }
 
-    pub fn _name(&self) -> &String {
+    pub fn name(&self) -> &String {
         return &self.name;
     }
 
-    pub fn _url(&self) -> &String {
+    pub fn url(&self) -> &String {
         return &self.url;
     }
 }
@@ -26,14 +32,6 @@ impl Menu {
 #[cfg(target_arch = "wasm32")]
 #[wasm::export]
 impl Menu {
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen(constructor))]
-    pub fn new(name: String, url: String) -> Self {
-        Self {
-            name,
-            url
-        }
-    }
-
     #[wasm_bindgen(getter = name)]
     pub fn _name(&self) -> String {
         return self.name.clone();

@@ -41,9 +41,9 @@ pub async fn get_menus(session: &Session, establishment_id: u16) -> Result<Vec<M
 
 #[cfg_attr(feature = "ffi", uniffi::export)]
 #[cfg_attr(target_arch = "wasm32", wasm::append_fetcher, wasm::export)]
-pub async fn get_menu_dishes(session: &Session, menu: &Menu, date: Date) -> Result<Dishes, Error> {
+pub async fn get_menu_dishes(session: &Session, menu: &Menu, date: &Date) -> Result<Dishes, Error> {
     let mut url = Url::parse(BASE_URL).unwrap();
-    url.set_path(&format!("{}/{}/{:0>2}/{:0>2}", menu._url(), date.year, date.month, date.day));
+    url.set_path(&format!("{}/{}/{:0>2}/{:0>2}", menu.url(), date.year, date.month, date.day));
 
     let request = Request {
         url,

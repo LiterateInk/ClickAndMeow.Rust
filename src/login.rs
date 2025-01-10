@@ -26,11 +26,14 @@ pub async fn login(username: &str, password: &str) -> Result<Session, Error> {
     let response = fetch(request).await?;
 
     let html = response.text();
+
     let document = Html::parse_document(html.as_str());
 
-    let selector = Selector::parse("input[name='_csrf_token']").unwrap();
-    let csrf_input = document.select(&selector).next().unwrap();
-    let csrf_token = csrf_input.attr("value").unwrap();
+    let csrf_token = {
+        let selector = Selector::parse("input[name='_csrf_token']").unwrap();
+
+        document.select(&selector).next().unwrap().attr("value").unwrap()
+    };
 
     let login_session_id = response.headers.get_all("Set-Cookie").into_iter().find(|x| x.to_str().unwrap().starts_with("PHPSESSID=")).unwrap()
                                     .to_str().unwrap().split(";").next().unwrap().split("=").skip(1).next().unwrap();

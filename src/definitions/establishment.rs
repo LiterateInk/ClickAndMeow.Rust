@@ -1,13 +1,20 @@
-#[cfg_attr(target_arch = "wasm32", wasm::export)]
+#[cfg(not(target_arch = "wasm32"))]
+#[cfg_attr(feature = "ffi", derive(uniffi::Record))]
+pub struct Establishment {
+    pub name: String,
+    pub url: String,
+    pub id: i32
+}
+
+#[cfg(target_arch = "wasm32")]
+#[wasm::export]
 pub struct Establishment {
     name: String,
     url: String,
     id: i32
 }
 
-#[cfg(not(target_arch = "wasm32"))]
 impl Establishment {
-    #[cfg_attr(feature = "ffi", uniffi::constructor)]
     pub fn new(name: String, url: String, id: i32) -> Self {
         Self {
             name,
@@ -16,15 +23,15 @@ impl Establishment {
         }
     }
 
-    pub fn _name(&self) -> &String {
+    pub fn name(&self) -> &String {
         return &self.name;
     }
 
-    pub fn _url(&self) -> &String {
+    pub fn url(&self) -> &String {
         return &self.url;
     }
 
-    pub fn _id(&self) -> &i32 {
+    pub fn id(&self) -> &i32 {
         return &self.id;
     }
 }
@@ -32,15 +39,6 @@ impl Establishment {
 #[cfg(target_arch = "wasm32")]
 #[wasm::export]
 impl Establishment {
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen(constructor))]
-    pub fn new(name: String, url: String, id: i32) -> Self {
-        Self {
-            name,
-            url,
-            id
-        }
-    }
-
     #[wasm_bindgen(getter = name)]
     pub fn _name(&self) -> String {
         return self.name.clone();

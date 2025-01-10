@@ -1,12 +1,12 @@
 #[cfg(not(target_arch = "wasm32"))]
-#[cfg_attr(feature = "ffi", derive(uniffi::Object))]
+#[cfg_attr(feature = "ffi", derive(uniffi::Record))]
 pub struct Dishes {
-    appetizers: Vec<String>,
-    lunchs: Vec<String>,
-    side_dishes: Vec<String>,
-    dairy_products: Vec<String>,
-    desserts: Vec<String>,
-    unknown: Vec<String>
+    pub appetizers: Vec<String>,
+    pub lunchs: Vec<String>,
+    pub side_dishes: Vec<String>,
+    pub dairy_products: Vec<String>,
+    pub desserts: Vec<String>,
+    pub unknown: Vec<String>
 }
 
 #[cfg(target_arch = "wasm32")]
@@ -20,10 +20,8 @@ pub struct Dishes {
     unknown: Vec<String>
 }
 
-#[cfg(not(target_arch = "wasm32"))]
-#[cfg_attr(feature = "ffi", uniffi::export)]
+
 impl Dishes {
-    #[cfg_attr(feature = "ffi", uniffi::constructor)]
     pub fn new(
         appetizers: Vec<String>,
         lunchs: Vec<String>,
@@ -70,25 +68,6 @@ impl Dishes {
 #[cfg(target_arch = "wasm32")]
 #[wasm::export]
 impl Dishes {
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen(constructor))]
-    pub fn new(
-        appetizers: Vec<String>,
-        lunchs: Vec<String>,
-        side_dishes: Vec<String>,
-        dairy_products: Vec<String>,
-        desserts: Vec<String>,
-        unknown: Vec<String>
-    ) -> Self {
-        Self {
-            appetizers,
-            lunchs,
-            side_dishes,
-            dairy_products,
-            desserts,
-            unknown
-        }
-    }
-
     #[wasm_bindgen(getter = appetizers)]
     pub fn _appetizers(&self) -> Vec<String> {
         return self.appetizers.clone();

@@ -881,9 +881,9 @@ checksum = "4ee93343901ab17bd981295f2cf0026d4ad018c7c31ba84549a4ddbb47a45104"
 
 [[package]]
 name = "literateink-fetcher"
-version = "0.1.10"
+version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b746e2bab65082bdf25235fb89f8ec1a784d714953da4ca44451ff3b31bc536"
+checksum = "54f393e905d6854ef0b10c6ad58e4c88fadfb17566a8fb14239add7f99e6bc7d"
 dependencies = [
  "http",
  "js-sys",
@@ -899,9 +899,9 @@ dependencies = [
 
 [[package]]
 name = "literateink-wasm"
-version = "0.1.10"
+version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ed79978bd4d798406ced84ccacc42191b9a7f9082441276fe0b97ffcf2b1e5b"
+checksum = "f41a234ec3f41002197f985b00cd9dbd5ba3a3f00de9df14ee4d2e2f42e8dd8d"
 dependencies = [
  "convert_case",
  "proc-macro2",
@@ -1421,9 +1421,9 @@ dependencies = [
 
 [[package]]
 name = "rustls"
-version = "0.23.20"
+version = "0.23.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5065c3f250cbd332cd894be57c40fa52387247659b14a2d6041d121547903b1b"
+checksum = "8f287924602bf649d949c63dc8ac8b235fa5387d394020705b80c4eb597ce5b8"
 dependencies = [
  "once_cell",
  "rustls-pki-types",

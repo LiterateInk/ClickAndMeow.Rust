@@ -9,10 +9,13 @@ mod session;
 pub use session::Session;
 
 mod definitions;
-pub use definitions::{Dishes, Menu, Date};
+pub use definitions::{Dishes, Menu, Date, Establishment};
 
 mod error;
 pub use error::Error;
 
 mod menu;
 pub use menu::{get_menus, get_menu_dishes};
+
+mod establishment;
+pub use establishment::get_establishments;

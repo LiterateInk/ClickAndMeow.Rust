@@ -2,79 +2,58 @@ use crate::{
   definitions::{Date, Dishes, Menu},
   Error, Session, BASE_URL,
 };
-use fetcher::{fetch, Method, Request, Url};
-use scraper::{Html, Selector};
 
-#[cfg_attr(feature = "ffi", uniffi::export)]
-#[cfg_attr(target_arch = "wasm32", wasm::append_fetcher, wasm::export)]
-pub async fn get_menus(session: &Session, establishment_id: u16) -> Result<Vec<Menu>, Error> {
+use reqwest::Client;
+use scraper::{Html, Selector};
+use url::Url;
+
+pub async fn get_menus(session: Session, establishment_id: u16) -> Result<Vec<Menu>, Error> {
   let mut url = Url::parse(BASE_URL).unwrap();
   url.set_path(&format!("/mesmenus/{}/0/2025/01/08", establishment_id));
 
-  let request = Request {
-    url,
-    method: Method::GET,
-    headers: session.get_headers(),
-    follow: false,
-    body: None,
-  };
+  let client = Client::new();
+  let request = client
+    .get(url.clone())
+    .headers(session.get_headers())
+    .build()?;
 
-  #[cfg(target_arch = "wasm32")]
-  let response = fetch(request, &fetcher).await?;
-
-  #[cfg(not(target_arch = "wasm32"))]
-  let response = fetch(request).await?;
-
-  let html = &response.text();
-  let document = Html::parse_document(html);
+  let html = client.execute(request).await?.text().await?;
+  let document = Html::parse_document(&html);
 
   let selector = Selector::parse("#select_menu_repas>option").unwrap();
 
   let mut menus = Vec::new();
 
   for menu_option_el in document.select(&selector) {
-    menus.push(Menu::new(
-      menu_option_el.text().next().unwrap().trim().to_string(),
-      menu_option_el
+    menus.push(Menu {
+      name: menu_option_el.text().next().unwrap().trim().to_string(),
+      url: menu_option_el
         .attr("value")
         .unwrap()
         .split('/')
         .collect::<Vec<&str>>()[0..4]
         .join("/"),
-    ));
+    });
   }
 
   Ok(menus)
 }
 
-#[cfg_attr(feature = "ffi", uniffi::export)]
-#[cfg_attr(target_arch = "wasm32", wasm::append_fetcher, wasm::export)]
 pub async fn get_menu_dishes(session: &Session, menu: &Menu, date: &Date) -> Result<Dishes, Error> {
   let mut url = Url::parse(BASE_URL).unwrap();
   url.set_path(&format!(
     "{}/{}/{:0>2}/{:0>2}",
-    menu.url(),
-    date.year,
-    date.month,
-    date.day
+    menu.url, date.year, date.month, date.day
   ));
 
-  let request = Request {
-    url,
-    method: Method::GET,
-    headers: session.get_headers(),
-    follow: false,
-    body: None,
-  };
+  let client = Client::new();
+  let request = client
+    .get(url.clone())
+    .headers(session.get_headers())
+    .build()?;
 
-  #[cfg(target_arch = "wasm32")]
-  let response = fetch(request, &fetcher).await?;
-
-  #[cfg(not(target_arch = "wasm32"))]
-  let response = fetch(request).await?;
-
-  let html = &response.text();
-  let document = Html::parse_document(html);
+  let html = client.execute(request).await?.text().await?;
+  let document = Html::parse_document(&html);
 
   let dish_container_selector = Selector::parse(".menu_composante_container").unwrap();
 
@@ -115,12 +94,12 @@ pub async fn get_menu_dishes(session: &Session, menu: &Menu, date: &Date) -> Res
     };
   }
 
-  Ok(Dishes::new(
+  Ok(Dishes {
     appetizers,
     lunchs,
     side_dishes,
     dairy_products,
     desserts,
     unknown,
-  ))
+  })
 }

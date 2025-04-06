@@ -1,10 +1,3 @@
-#[cfg(feature = "ffi")]
-uniffi::setup_scaffolding!();
-
-#[cfg(target_arch = "wasm32")]
-#[global_allocator]
-static ALLOC: mini_alloc::MiniAlloc = mini_alloc::MiniAlloc::INIT;
-
 mod session;
 pub use session::Session;
 

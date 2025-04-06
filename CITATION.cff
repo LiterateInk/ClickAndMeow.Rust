@@ -8,8 +8,9 @@ authors:
   - name: LiterateInk
     website: "https://literate.ink"
     email: contact@literate.ink
-repository-code: 'https://github.com/LiterateInk/ClickAndMeow'
-url: 'https://docs.literate.ink/clickandmeow'
+repository-code: "https://github.com/LiterateInk/ClickAndMeow.Rust"
+url: "https://clickandmeow.docs.literate.ink/"
+repository-artifact: "https://crates.io/crates/clickandmeow"
 abstract: >-
   A meow-mazing API wrapper for ClicEtMiam.
 keywords:

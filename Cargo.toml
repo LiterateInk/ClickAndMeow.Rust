@@ -2,42 +2,19 @@
 name = "clickandmeow"
 version = "1.0.0"
 description = "A meow-mazing API wrapper for ClicEtMiam."
-repository = "https://github.com/LiterateInk/ClickAndMeow"
+repository = "https://github.com/LiterateInk/ClickAndMeow.Rust.git"
 authors = ["LiterateInk <contact@literate.ink>"]
 keywords = ["clicetmiam", "wrapper", "api"]
-homepage = "https://docs.literate.ink/clickandmeow"
-include = ["**/*.rs", "!src/bin/*.rs", "Cargo.toml"]
+homepage = "https://clickandmeow.docs.literate.ink"
 license = "GPL-3.0-or-later"
 edition = "2021"
 
-[lib]
-crate-type = ["lib", "cdylib", "staticlib"]
-name = "clickandmeow"
-
-[features]
-ffi = ["uniffi"]
-
 [dependencies]
-uniffi = { version = "0.28", git = "https://github.com/mozilla/uniffi-rs", features = [
-  "cli",
-], optional = true }
 anyhow = "1.0"
-fetcher = { package = "literateink-fetcher", version = "0.1" }
 thiserror = "2"
 scraper = { version = "0.22.0", features = ["atomic"] }
+reqwest = "0.12.15"
+url = "2.5.4"
 
-[target.'cfg(target_arch = "wasm32")'.dependencies]
-wasm-bindgen = "0.2"
-js-sys = "0.3"
-wasm-bindgen-futures = "0.4"
-wasm = { package = "literateink-wasm", version = "0.1" }
-mini-alloc = "0.7.0"
-
-[build-dependencies]
-uniffi = { version = "0.28", git = "https://github.com/mozilla/uniffi-rs", features = [
-  "build",
-], optional = true }
-
-[workspace]
-resolver = "2"
-members = ["examples/rust"]
+[dev-dependencies]
+tokio = { version = "1.44", features = ["full"] }

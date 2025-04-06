@@ -12,9 +12,9 @@ repository-code: "https://github.com/LiterateInk/ClickAndMeow.Rust"
 url: "https://clickandmeow.docs.literate.ink/"
 repository-artifact: "https://crates.io/crates/clickandmeow"
 abstract: >-
-  A meow-mazing API wrapper for ClicEtMiam.
+  A meow-mazing wrapper for ClicEtMiam.
 keywords:
   - clicetmiam
   - wrapper
-  - api
+  - scrapper
 license: GPL-3.0-or-later

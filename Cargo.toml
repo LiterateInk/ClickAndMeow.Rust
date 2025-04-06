@@ -1,10 +1,10 @@
 [package]
 name = "clickandmeow"
 version = "1.0.0"
-description = "A meow-mazing API wrapper for ClicEtMiam."
+description = "A meow-mazing wrapper for ClicEtMiam."
 repository = "https://github.com/LiterateInk/ClickAndMeow.Rust.git"
 authors = ["LiterateInk <contact@literate.ink>"]
-keywords = ["clicetmiam", "wrapper", "api"]
+keywords = ["clicetmiam", "wrapper", "scrapper"]
 homepage = "https://clickandmeow.docs.literate.ink"
 license = "GPL-3.0-or-later"
 edition = "2021"
@@ -13,8 +13,8 @@ edition = "2021"
 anyhow = "1.0"
 thiserror = "2"
 scraper = { version = "0.22.0", features = ["atomic"] }
-reqwest = "0.12.15"
-url = "2.5.4"
+reqwest = "0.12"
+url = "2.5"
 
 [dev-dependencies]
 tokio = { version = "1.44", features = ["full"] }
